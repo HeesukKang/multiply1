@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
         oneonecheck[7] = (CheckBox)findViewById(R.id.oneonecheck8);
         oneonecheck[8] = (CheckBox)findViewById(R.id.oneonecheck9);
         oneonecheck[9] = (CheckBox)findViewById(R.id.oneonecheck10);
+        //전공인지 여부를 체크
 
         oneonesubject[0] = findViewById(R.id.oneonesubject1);
         oneonesubject[1] = findViewById(R.id.oneonesubject2);
