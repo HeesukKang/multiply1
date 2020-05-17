@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+//주석을 추가합니다
 public class MainActivity extends AppCompatActivity {
 
     CheckBox[] oneonecheck = new CheckBox[10];
