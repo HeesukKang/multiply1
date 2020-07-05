@@ -12,6 +12,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -19,11 +21,11 @@ public class MainActivity extends AppCompatActivity {
     EditText[] oneonesubject = new EditText[10];
     Spinner[] oneonegrade = new Spinner[10];
     Spinner oneonecredit1, oneonecredit2, oneonecredit3, oneonecredit4, oneonecredit5, oneonecredit6, oneonecredit7, oneonecredit8, oneonecredit9, oneonecredit10;
-    TextView credit_sum_view, upper_score_view, korea_score_view, america_score_view;
+    TextView credit_sum_view, korea_score_view, america_score_view;
     //전공평점, 총평점, 3,4학년 평점 총 텍스트뷰 4개
     Button cal_button; //버튼을 누르면 계산이 실행된다
 
-    int credit_sum; //이번 학기 이수 학점
+    double credit_sum; //이번 학기 이수 학점
     double real_credit_sum; // 패논패는 제외한 학점
     double korea_score, america_score; // 4.5만점 학점의 분자, 4.0만점 학점의 분자
 
@@ -98,17 +100,17 @@ public class MainActivity extends AppCompatActivity {
         cal_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final int[] oneonecredit = new int[10];
-                oneonecredit[0] = Integer.parseInt(oneonecredit1.getSelectedItem().toString());
-                oneonecredit[1] = Integer.parseInt(oneonecredit2.getSelectedItem().toString());
-                oneonecredit[2] = Integer.parseInt(oneonecredit3.getSelectedItem().toString());
-                oneonecredit[3] = Integer.parseInt(oneonecredit4.getSelectedItem().toString());
-                oneonecredit[4] = Integer.parseInt(oneonecredit5.getSelectedItem().toString());
-                oneonecredit[5] = Integer.parseInt(oneonecredit6.getSelectedItem().toString());
-                oneonecredit[6] = Integer.parseInt(oneonecredit7.getSelectedItem().toString());
-                oneonecredit[7] = Integer.parseInt(oneonecredit8.getSelectedItem().toString());
-                oneonecredit[8] = Integer.parseInt(oneonecredit9.getSelectedItem().toString());
-                oneonecredit[9] = Integer.parseInt(oneonecredit10.getSelectedItem().toString());
+                final double[] oneonecredit = new double[10];
+                oneonecredit[0] = Double.parseDouble(oneonecredit1.getSelectedItem().toString());
+                oneonecredit[1] = Double.parseDouble(oneonecredit2.getSelectedItem().toString());
+                oneonecredit[2] = Double.parseDouble(oneonecredit3.getSelectedItem().toString());
+                oneonecredit[3] = Double.parseDouble(oneonecredit4.getSelectedItem().toString());
+                oneonecredit[4] = Double.parseDouble(oneonecredit5.getSelectedItem().toString());
+                oneonecredit[5] = Double.parseDouble(oneonecredit6.getSelectedItem().toString());
+                oneonecredit[6] = Double.parseDouble(oneonecredit7.getSelectedItem().toString());
+                oneonecredit[7] = Double.parseDouble(oneonecredit8.getSelectedItem().toString());
+                oneonecredit[8] = Double.parseDouble(oneonecredit9.getSelectedItem().toString());
+                oneonecredit[9] = Double.parseDouble(oneonecredit10.getSelectedItem().toString());
 
                 //oneonecredit의 내용을 정수로 변환해서 저장
 
@@ -122,56 +124,58 @@ public class MainActivity extends AppCompatActivity {
 
                 for (int i = 0; i < 10; i++) {
                     if(oneonesubject[i].getText().toString().getBytes().length <= 0){
+                        oneonescoreKor[i] = 0;
+                        oneonescoreAmer[i] = 0;
 
                     }else {
-                        if (oneonegrade[i].getSelectedItem().toString() == "A+") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("A+")) {
                             oneonescoreKor[i] = 4.5;
                             oneonescoreAmer[i] = 4;
                         }
-                        if (oneonegrade[i].getSelectedItem().toString() == "A") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("A")) {
                             oneonescoreKor[i] = 4;
                             oneonescoreAmer[i] = 4;
                         }
-                        if (oneonegrade[i].getSelectedItem().toString() == "B+") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("B+")) {
                             oneonescoreKor[i] = 3.5;
                             oneonescoreAmer[i] = 3;
                         }
-                        if (oneonegrade[i].getSelectedItem().toString() == "B") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("B")) {
                             oneonescoreKor[i] = 3;
                             oneonescoreAmer[i] = 3;
                         }
-                        if (oneonegrade[i].getSelectedItem().toString() == "C+") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("C+")) {
                             oneonescoreKor[i] = 2.5;
                             oneonescoreAmer[i] = 2;
                         }
-                        if (oneonegrade[i].getSelectedItem().toString() == "C") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("C")) {
                             oneonescoreKor[i] = 2;
                             oneonescoreAmer[i] = 2;
                         }
-                        if (oneonegrade[i].getSelectedItem().toString() == "D+") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("D+")) {
                             oneonescoreKor[i] = 1.5;
                             oneonescoreAmer[i] = 1;
                         }
-                        if (oneonegrade[i].getSelectedItem().toString() == "D") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("D")) {
                             oneonescoreKor[i] = 1;
                             oneonescoreAmer[i] = 1;
                         }
-                        if (oneonegrade[i].getSelectedItem().toString() == "F") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("F")) {
                             oneonescoreKor[i] = 0;
                             oneonescoreAmer[i] = 0;
                         }
-                        if (oneonegrade[i].getSelectedItem().toString() == "P") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("P")) {
                             oneonescoreKor[i] = 0;
                             oneonescoreAmer[i] = 0;
                         }
-                        if (oneonegrade[i].getSelectedItem().toString() == "NP") {
+                        if (oneonegrade[i].getSelectedItem().toString().equals("NP")) {
                             oneonescoreKor[i] = 0;
                             oneonescoreAmer[i] = 0;
                         }
                         //각 평점별로 학점 계산을 했음
                         korea_score = korea_score + oneonecredit[i] * oneonescoreKor[i];
                         //4.5만점 학점 계산의 분자부분
-                        america_score = america_score + oneonecredit[i] * oneonescoreKor[i];
+                        america_score = america_score + oneonecredit[i] * oneonescoreAmer[i];
                         //4.0만점 학점 계산의 분자부분
                     }
 
@@ -180,9 +184,7 @@ public class MainActivity extends AppCompatActivity {
                 credit_sum = 0;
                 //클릭할때마다 다시 계산해야하므로 초기화
                 for(int i=0; i<10; i++){
-                    if(oneonesubject[i].getText().toString().getBytes().length <= 0){
-
-                    }else{
+                    if(oneonesubject[i].getText().toString().getBytes().length > 0){
                         credit_sum += oneonecredit[i];
                     }
                     //과목명이 비어있지 않으면 학점으로 인정
@@ -193,22 +195,31 @@ public class MainActivity extends AppCompatActivity {
                 //real_credit_sum은 학점 계산 시 분모에 해당한다.
                 for(int i=0; i<10; i++){
                     if(oneonesubject[i].getText().toString().getBytes().length <= 0){
-
-                    } else if (oneonegrade[i].getSelectedItem().toString() == "P") {
-
-                    } else if (oneonegrade[i].getSelectedItem().toString() == "NP") {
-
+                        real_credit_sum += 0;
+                    } else if (oneonegrade[i].getSelectedItem().toString().equals("P")) {
+                        real_credit_sum += 0;
+                    } else if (oneonegrade[i].getSelectedItem().toString().equals("NP")) {
+                        real_credit_sum += 0;
                     } else {
                         real_credit_sum += oneonecredit[i];
                     }
                     //과목명이 비어있지 않고 패논패가 아니라면 유효학점으로 인정
                 }
-                credit_sum_view.setText(Integer.toString(credit_sum));
-                //이번학기 이수학점을 나타냄
-                korea_score_view.setText(Double.toString(korea_score / real_credit_sum));
-                //4.5만점 학점의 분자부분이 korea_score 여기에 유효수강학점인 real_credit_sum을 나눔
-                america_score_view.setText(Double.toString(america_score / real_credit_sum));
-                //4.0만점 학점의 분자부분이 america_score 여기에 유효수강학점인 real_credit_sum을 나눔
+                if(credit_sum > 0 && real_credit_sum > 0 ) {
+                    credit_sum_view.setText(String.format(Locale.getDefault(),"%f",credit_sum));
+                    //이번학기 이수학점을 나타냄
+                    korea_score_view.setText(String.format(Locale.getDefault(),"%f",korea_score / real_credit_sum));
+                    //4.5만점 학점의 분자부분이 korea_score 여기에 유효수강학점인 real_credit_sum을 나눔
+                    america_score_view.setText(String.format(Locale.getDefault(),"%f",america_score / real_credit_sum));
+                    //4.0만점 학점의 분자부분이 america_score 여기에 유효수강학점인 real_credit_sum을 나눔
+                }else{
+                    credit_sum_view.setText(String.format(Locale.getDefault(),"%f",credit_sum));
+                    //이번학기 이수학점을 나타냄
+                    korea_score_view.setText('0');
+                    //4.5만점 학점의 분자부분이 korea_score 여기에 유효수강학점인 real_credit_sum을 나눔
+                    america_score_view.setText('0');
+                    //4.0만점 학점의 분자부분이 america_score 여기에 유효수강학점인 real_credit_sum을 나눔
+                }
             }
         });
 
@@ -219,7 +230,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     void Adapter(){
-        ArrayAdapter Adapter1 = ArrayAdapter.createFromResource(this, R.array.credit, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> Adapter1 = ArrayAdapter.createFromResource(this, R.array.credit, android.R.layout.simple_spinner_item);
         oneonecredit1.setAdapter(Adapter1);
         oneonecredit2.setAdapter(Adapter1);
         oneonecredit3.setAdapter(Adapter1);
@@ -231,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         oneonecredit9.setAdapter(Adapter1);
         oneonecredit10.setAdapter(Adapter1);
 
-        ArrayAdapter Adapter2 = ArrayAdapter.createFromResource(this, R.array.grade, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> Adapter2 = ArrayAdapter.createFromResource(this, R.array.grade, android.R.layout.simple_spinner_item);
         oneonegrade[0].setAdapter(Adapter2);
         oneonegrade[1].setAdapter(Adapter2);
         oneonegrade[2].setAdapter(Adapter2);
