@@ -255,7 +255,7 @@ public class MainActivity extends AppCompatActivity {
         oneonegrade[9].setAdapter(Adapter2);
 //spinner에 대한 어댑터
     }
-
+//그만할래
 
 
 
